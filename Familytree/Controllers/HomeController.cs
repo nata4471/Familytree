@@ -6,15 +6,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Familytree.Models;
 
+
 namespace Familytree.Controllers
 {
     public class HomeController : Controller
     {
+        Repository repository = new Repository();
         public IActionResult Index()
         {
-            return View();
+            var frederik = repository.DanishRoyalFamily[4];
+            return View(frederik);
         }
-
+       
+        public IActionResult PersonSelected(int id)
+        {
+            var chosenPerson = repository.DanishRoyalFamily.FirstOrDefault(x => x.Id == id);
+            return View("Index", chosenPerson);
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
